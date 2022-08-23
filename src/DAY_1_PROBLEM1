@@ -1,0 +1,16 @@
+mysql> create database ConstructionWeek;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use ConstructionWeek;
+Database changed
+mysql> create table DEPOSIT(ACTNO varchar(25) Primary key, CNAME VARCHAR(20), BNAME VARCHAR(20), AMOUNT INT, ADATE DATE);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE BRANCH(BNAME VARCHAR(25) PRIMARY KEY, CITY VARCHAR(20));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE CUSTOMER(CNAME VARCHAR(20), CITY VARCHAR(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE BORROW(LOANNO VARCHAR(5) PRIMARY KEY,CNAME VARCHAR(20), BNAME VARCHAR(20),AMOUNT INT);
+Query OK, 0 rows affected (0.02 sec)

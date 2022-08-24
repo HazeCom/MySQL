@@ -1,0 +1,26 @@
+mysql> create table Person(id int primary key,email varchar(20));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> insert into person values(1,a@b.com),(2,c@d.com),(3,a@b.com);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '@b.com),(2,c@d.com),(3,a@b.com)' at line 1
+mysql> insert into person values(1,"a@b.com"),(2,'c@d.com'),(3,'a@b.com');
+Query OK, 3 rows affected (0.03 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from person;
++----+---------+
+| id | email   |
++----+---------+
+|  1 | a@b.com |
+|  2 | c@d.com |
+|  3 | a@b.com |
++----+---------+
+3 rows in set (0.01 sec)
+
+mysql> select email as Email, count(*) times from person group by email having times > 1;
++---------+-------+
+| Email   | times |
++---------+-------+
+| a@b.com |     2 |
++---------+-------+
+1 row in set (0.00 sec)

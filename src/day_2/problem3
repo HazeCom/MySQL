@@ -1,0 +1,87 @@
+mysql> create table EmployeeDetails(EmpId int primary key, FullName varchar(20), ManagerId int, DateOfJoining date, city varchar(20));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into EmployeeDetails values(121 ,"John Snow", 321, '2014-31-01', "Toronto");
+ERROR 1292 (22007): Incorrect date value: '2014-31-01' for column 'DateOfJoining' at row 1
+mysql> insert into EmployeeDetails values(121 ,"John Snow", 321, '2014-01-31', "Toronto");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into EmployeeDetails values(321 ,"Walter White", 986, '2015-01-30', "California");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into EmployeeDetails values(421 ,"Kuldeep Rana", 876, '2016-11-27', "New Delhi");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> Select * from employeeDetails;
++-------+--------------+-----------+---------------+------------+
+| EmpId | FullName     | ManagerId | DateOfJoining | city       |
++-------+--------------+-----------+---------------+------------+
+|   121 | John Snow    |       321 | 2014-01-31    | Toronto    |
+|   321 | Walter White |       986 | 2015-01-30    | California |
+|   421 | Kuldeep Rana |       876 | 2016-11-27    | New Delhi  |
++-------+--------------+-----------+---------------+------------+
+3 rows in set (0.01 sec)
+
+mysql> insert into EmployeeSalary values(121,"P1",8000,500)
+    -> ,(321,"P2",10000,1000)
+    -> ,(421,"P1",12000,0);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employeesalary;
++-------+---------+--------+----------+
+| EmpId | Project | salary | Variable |
++-------+---------+--------+----------+
+|   121 | P1      |   8000 |      500 |
+|   321 | P2      |  10000 |     1000 |
+|   421 | P1      |  12000 |        0 |
++-------+---------+--------+----------+
+3 rows in set (0.01 sec)
+
+=============================================================================================================================================
+1. Write an SQL query to fetch the employees whose name begins with any two characters, followed by a text “hn” and ending with any
+   sequence of characters
+
+
+mysql> select * from employeedetails where FullName like "__hn%";
++-------+-----------+-----------+---------------+---------+
+| EmpId | FullName  | ManagerId | DateOfJoining | city    |
++-------+-----------+-----------+---------------+---------+
+|   121 | John Snow |       321 | 2014-01-31    | Toronto |
++-------+-----------+-----------+---------------+---------+
+1 row in set (0.00 sec)
+
+=============================================================================================================================================
+2. Write an SQL query to fetch common records between two tables.
+
+
+=============================================================================================================================================
+3. Write an SQL query to fetch records that are present in one table but not in another table.
+
+mysql> select * from employeedetails ed left join employeesalary es on ed.EmpId = es.EmpId;
++-------+--------------+-----------+---------------+------------+-------+---------+--------+----------+
+| EmpId | FullName     | ManagerId | DateOfJoining | city       | EmpId | Project | salary | Variable |
++-------+--------------+-----------+---------------+------------+-------+---------+--------+----------+
+|   121 | John Snow    |       321 | 2014-01-31    | Toronto    |   121 | P1      |   8000 |      500 |
+|   321 | Walter White |       986 | 2015-01-30    | California |   321 | P2      |  10000 |     1000 |
+|   421 | Kuldeep Rana |       876 | 2016-11-27    | New Delhi  |   421 | P1      |  12000 |        0 |
++-------+--------------+-----------+---------------+------------+-------+---------+--------+----------+
+3 rows in set (0.00 sec)
+
+=============================================================================================================================================
+4. Write an SQL query to find the maximum, minimum, and average salary of the employees.
+
+mysql> select max(salary), min(salary), avg(salary) from employeesalary;
++-------------+-------------+-------------+
+| max(salary) | min(salary) | avg(salary) |
++-------------+-------------+-------------+
+|       12000 |        8000 |  10000.0000 |
++-------------+-------------+-------------+
+1 row in set (0.00 sec)
+
+=============================================================================================================================================
+5. Fetch all the employees who are not working on any project.
+
+mysql> select * from employeedetails ed inner join employeesalary es on ed.EmpId = es.EmpId and es.project = null;
+Empty set (0.00 sec)
+
